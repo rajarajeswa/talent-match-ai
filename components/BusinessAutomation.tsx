@@ -5,6 +5,7 @@ import { Search, Target, Zap, Star, Clock, DollarSign, TrendingUp, Briefcase, Se
 import { useAuth } from '@/components/AuthProvider'
 import { SubscriptionManager } from '@/lib/subscription-manager'
 import { User, MockUser } from '@/lib/auth'
+import { firestoreService } from '@/lib/firestore'
 
 interface JobSearchMetrics {
   totalJobs: number
@@ -106,6 +107,43 @@ export function BusinessAutomation() {
     }
     
     return 'anonymous_user'
+  }
+
+  // Track user activities
+  const trackJobSearch = async () => {
+    const userId = getUserId()
+    if (userId !== 'anonymous_user') {
+      try {
+        await firestoreService.trackJobSearch(userId)
+        console.log('✅ Job search tracked in Firestore')
+      } catch (error) {
+        console.error('❌ Error tracking job search:', error)
+      }
+    }
+  }
+
+  const trackResumeUpload = async (resumeId: string) => {
+    const userId = getUserId()
+    if (userId !== 'anonymous_user') {
+      try {
+        await firestoreService.trackResumeUpload(userId, resumeId)
+        console.log('✅ Resume upload tracked in Firestore')
+      } catch (error) {
+        console.error('❌ Error tracking resume upload:', error)
+      }
+    }
+  }
+
+  const trackJobApplication = async (jobId: string) => {
+    const userId = getUserId()
+    if (userId !== 'anonymous_user') {
+      try {
+        await firestoreService.trackJobApplication(userId, jobId)
+        console.log('✅ Job application tracked in Firestore')
+      } catch (error) {
+        console.error('❌ Error tracking job application:', error)
+      }
+    }
   }
 
   const resumeTemplates = [
