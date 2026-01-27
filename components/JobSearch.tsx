@@ -13,8 +13,8 @@ interface SearchFilters {
   industry: string
   company: string
   salary: string
-  type: string  // Added this
-  text: string  // Added this
+  type: string
+  text: string
 }
 
 export function JobSearch() {
@@ -24,7 +24,9 @@ export function JobSearch() {
     experience: '',
     industry: '',
     company: '',
-    salary: ''
+    salary: '',
+    type: '',
+    text: ''
   })
   const [searchResults, setSearchResults] = useState<any[]>([])
   const [searching, setSearching] = useState(false)
