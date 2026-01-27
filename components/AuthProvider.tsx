@@ -1,10 +1,12 @@
 'use client'
 
 import { createContext, useContext, useEffect, useState } from 'react'
-import { onMockAuthStateChanged, getMockUser, MockUser } from '@/lib/mockAuth'
+import { onAuthStateChanged, User, MockUser } from '@/lib/auth'
+
+type AuthUser = User | MockUser
 
 interface AuthContextType {
-  user: MockUser | null
+  user: AuthUser | null
   loading: boolean
 }
 
@@ -14,12 +16,12 @@ const AuthContext = createContext<AuthContextType>({
 })
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<MockUser | null>(null)
+  const [user, setUser] = useState<AuthUser | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Use mock authentication instead of Firebase
-    const unsubscribe = onMockAuthStateChanged((user) => {
+    // Use Firebase or mock authentication
+    const unsubscribe = onAuthStateChanged((user) => {
       setUser(user)
       setLoading(false)
     })

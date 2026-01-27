@@ -3,31 +3,28 @@ import { getAuth, GoogleAuthProvider } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
 
-// Use demo configuration for development
+// Firebase configuration - Replace with your real config
 const firebaseConfig = {
-  apiKey: "AIzaSyDemoKeyForDevelopmentOnly",
-  authDomain: "talent-match-demo.firebaseapp.com",
-  projectId: "talent-match-demo",
-  storageBucket: "talent-match-demo.appspot.com",
-  messagingSenderId: "123456789012",
-  appId: "1:123456789012:web:abcdef123456789012345678"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "AIzaSyDemoKeyForDevelopmentOnly",
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || "talent-match-demo.firebaseapp.com",
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || "talent-match-demo",
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || "talent-match-demo.appspot.com",
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID || "123456789012",
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID || "1:123456789012:web:abcdef123456789012345678"
 }
 
-// Only initialize if all required config is available
-let app: any = null
-let auth: any = null
-let db: any = null
-let storage: any = null
-let googleProvider: any = null
+// Initialize Firebase
+const app = initializeApp(firebaseConfig)
+const auth = getAuth(app)
+const db = getFirestore(app)
+const storage = getStorage(app)
+const googleProvider = new GoogleAuthProvider()
 
-try {
-  app = initializeApp(firebaseConfig)
-  auth = getAuth(app)
-  db = getFirestore(app)
-  storage = getStorage(app)
-  googleProvider = new GoogleAuthProvider()
-} catch (error) {
-  console.warn('Firebase initialization failed:', error)
-}
+// Configure Google Provider
+googleProvider.setCustomParameters({
+  prompt: 'select_account'
+})
 
-export { auth, db, storage, googleProvider }
+export { app, auth, db, storage, googleProvider }
+export const isDemoMode = !process.env.NEXT_PUBLIC_FIREBASE_API_KEY || 
+  process.env.NEXT_PUBLIC_FIREBASE_API_KEY === "AIzaSyDemoKeyForDevelopmentOnly"

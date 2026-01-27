@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { Search, Target, Zap, Star, Clock, DollarSign, TrendingUp, Briefcase, Send, ThumbsUp, MapPin, Building, Eye, Filter, FileText, Download, CheckCircle, AlertCircle, RefreshCw, ExternalLink } from 'lucide-react'
 import { useAuth } from '@/components/AuthProvider'
 import { SubscriptionManager } from '@/lib/subscription-manager'
+import { User, MockUser } from '@/lib/auth'
 
 interface JobSearchMetrics {
   totalJobs: number
@@ -89,6 +90,23 @@ export function BusinessAutomation() {
     
     return () => clearInterval(interval)
   }, [user])
+
+  // Get user ID for Firebase or Mock
+  const getUserId = () => {
+    if (!user) return 'anonymous_user'
+    
+    // Handle Firebase User
+    if ('uid' in user) {
+      return (user as User).uid || (user as User).email || 'anonymous_user'
+    }
+    
+    // Handle MockUser
+    if ('uid' in user) {
+      return (user as MockUser).uid || (user as MockUser).email || 'anonymous_user'
+    }
+    
+    return 'anonymous_user'
+  }
 
   const resumeTemplates = [
     {
