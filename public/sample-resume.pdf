@@ -1,0 +1,14 @@
+# Sample Resume Content
+
+This is a placeholder for a PDF resume file.
+In a real implementation, this would be an actual PDF file.
+
+For testing purposes, you can:
+1. Use any real PDF resume file you have
+2. Create a simple PDF with your resume content
+3. Download sample resumes from online sources
+
+The upload component accepts:
+- PDF files (.pdf)
+- Word documents (.doc, .docx)
+- Maximum file size: 10MB
