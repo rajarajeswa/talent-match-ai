@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import { Toaster } from 'react-hot-toast'
 import { AuthProvider } from '@/components/AuthProvider'
 import { QueryProvider } from '@/components/QueryProvider'
+import { Analytics } from '@vercel/analytics/next'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -25,6 +26,7 @@ export default function RootLayout({
             <Toaster position="top-right" />
           </AuthProvider>
         </QueryProvider>
+        <Analytics />
       </body>
     </html>
   )
