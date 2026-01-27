@@ -13,6 +13,8 @@ interface SearchFilters {
   industry: string
   company: string
   salary: string
+  type: string  // Added this
+  text: string  // Added this
 }
 
 export function JobSearch() {
