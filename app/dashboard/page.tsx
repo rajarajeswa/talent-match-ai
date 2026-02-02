@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useAuth } from '@/components/AuthProvider'
-import { Upload, FileText, Search, Filter, TrendingUp, Crown, Users } from 'lucide-react'
+import { Upload, FileText, Search, Filter, TrendingUp, Crown, Users, BarChart3 } from 'lucide-react'
 import { ResumeUpload } from '@/components/ResumeUpload'
 import { AIJobRecommendations } from '@/components/AIJobRecommendations'
 import { JobList } from '@/components/JobList'
@@ -11,10 +11,11 @@ import { getJobMatches } from '@/lib/jobService'
 import { Pricing } from '@/components/Pricing'
 import { TrialStatus } from '@/components/TrialStatus'
 import { BusinessAutomation } from '@/components/BusinessAutomation'
+import { UserAnalytics } from '@/components/UserAnalytics'
 
 export default function Dashboard() {
   const { user } = useAuth()
-  const [activeTab, setActiveTab] = useState<'upload' | 'search' | 'matches' | 'business' | 'pricing'>('upload')
+  const [activeTab, setActiveTab] = useState<'upload' | 'search' | 'matches' | 'business' | 'analytics' | 'pricing'>('upload')
   const [matchedJobs, setMatchedJobs] = useState<any[]>([])
   const [resumeData, setResumeData] = useState<any>(null)
   const [isEnterprise, setIsEnterprise] = useState(false)

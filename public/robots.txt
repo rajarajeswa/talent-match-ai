@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://talent-match-ai.vercel.app/sitemap.xml
+
+# Allow search engines to crawl all pages
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Crawl delay (optional, be nice to servers)
+Crawl-delay: 1
