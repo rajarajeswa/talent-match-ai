@@ -59,9 +59,9 @@ export const signOut = async (): Promise<void> => {
 
 export const onAuthStateChanged = (callback: (user: User | MockUser | null) => void) => {
   if (isDemoMode) {
-    // Use mock auth state changes
-    const mockUser = localStorage.getItem('mockUser')
-    callback(mockUser ? JSON.parse(mockUser) : null)
+    // Don't auto-login from localStorage in demo mode
+    // User must explicitly click sign in
+    callback(null)
     return () => {} // Return unsubscribe function
   }
   
