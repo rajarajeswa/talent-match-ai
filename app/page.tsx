@@ -331,14 +331,6 @@ export default function Home() {
             >
               <Navigation className={`h-4 w-4 ${locationLoading ? 'animate-pulse' : ''}`} />
             </button>
-            {/* Dashboard Link */}
-            <a 
-              href="/dashboard" 
-              className="p-1.5 rounded-lg text-gray-500 hover:text-gray-700"
-              title="Admin Dashboard"
-            >
-              <Activity className="h-4 w-4" />
-            </a>
             {user ? (
               <div className="flex items-center gap-2">
                 <span className="text-sm text-gray-600">{user.name}</span>
