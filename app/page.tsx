@@ -158,22 +158,8 @@ export default function Home() {
     setLoading(false)
   }
 
-  // Filter tasks within 1km
-  const filteredTasks = tasks.filter(task => {
-    if (!userLocation) return true // Show all if no location
-    
-    const taskCoords = addressToCoords(task.location)
-    if (!taskCoords) return true // Show if can't convert
-    
-    const distance = getDistanceFromLatLonInKm(
-      userLocation.lat,
-      userLocation.lng,
-      taskCoords.lat,
-      taskCoords.lng
-    )
-    
-    return distance <= 1 // Within 1km
-  })
+  // Show all tasks - no location filtering in demo mode
+  const filteredTasks = tasks
 
   async function handleLogin() {
     if (!phone || !name) {
