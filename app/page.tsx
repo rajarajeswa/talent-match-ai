@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Task } from '@/lib/choreService'
 import { TaskCard } from '@/components/chores/TaskCard'
-import { Plus, Zap, LogOut, MessageCircle, CheckCircle, ArrowRight, MapPin, Shield, Heart, Sparkles, Navigation } from 'lucide-react'
+import { Plus, Zap, LogOut, MessageCircle, CheckCircle, ArrowRight, MapPin, Shield, Heart, Sparkles, Navigation, Activity } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 interface UserData {
@@ -331,6 +331,14 @@ export default function Home() {
             >
               <Navigation className={`h-4 w-4 ${locationLoading ? 'animate-pulse' : ''}`} />
             </button>
+            {/* Dashboard Link */}
+            <a 
+              href="/dashboard" 
+              className="p-1.5 rounded-lg text-gray-500 hover:text-gray-700"
+              title="Admin Dashboard"
+            >
+              <Activity className="h-4 w-4" />
+            </a>
             {user ? (
               <div className="flex items-center gap-2">
                 <span className="text-sm text-gray-600">{user.name}</span>
@@ -359,6 +367,15 @@ export default function Home() {
               ? 'Showing tasks within 1km of your location' 
               : 'Enable location to see nearby tasks'}
           </p>
+          {!userLocation && (
+            <button 
+              onClick={requestLocation}
+              className="mt-3 bg-emerald-500 text-white px-6 py-2.5 rounded-lg font-medium flex items-center gap-2 mx-auto"
+            >
+              <Navigation className="h-4 w-4" />
+              Detect My Location
+            </button>
+          )}
         </motion.div>
 
         {loading ? (
@@ -373,35 +390,46 @@ export default function Home() {
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="text-center py-12 bg-white rounded-2xl"
+            className="bg-white rounded-2xl overflow-hidden"
           >
-            <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Heart className="h-10 w-10 text-emerald-400" />
+            {/* Map Placeholder */}
+            <div className="h-64 bg-gradient-to-br from-emerald-100 to-blue-100 relative">
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg">
+                  <MapPin className="h-10 w-10 text-emerald-500" />
+                </div>
+              </div>
+              {/* Map grid pattern */}
+              <div className="absolute inset-0 opacity-20" 
+                style={{
+                  backgroundImage: 'linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)',
+                  backgroundSize: '20px 20px'
+                }}
+              />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              {userLocation ? 'No chores nearby!' : 'Enable location'}
-            </h3>
-            <p className="text-gray-500 mb-4">
-              {userLocation 
-                ? 'No tasks within 1km of you' 
-                : 'Allow location to see chores near you'}
-            </p>
-            {!userLocation && (
-              <button 
-                onClick={requestLocation}
-                className="bg-emerald-500 text-white px-6 py-2 rounded-lg font-medium"
-              >
-                Enable Location
-              </button>
-            )}
-            {userLocation && user && (
-              <button 
-                onClick={() => setShowCreate(true)}
-                className="bg-emerald-500 text-white px-6 py-2 rounded-lg font-medium"
-              >
-                Post a Chore
-              </button>
-            )}
+            <div className="p-6 text-center">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Zero chores in your area — be the first to post!
+              </h3>
+              <p className="text-gray-500 mb-4">
+                No tasks within 1km of you. Post a chore and help your neighbors!
+              </p>
+              {user ? (
+                <button 
+                  onClick={() => setShowCreate(true)}
+                  className="bg-emerald-500 text-white px-6 py-2 rounded-lg font-medium"
+                >
+                  Post a Chore
+                </button>
+              ) : (
+                <button 
+                  onClick={() => setShowLogin(true)}
+                  className="bg-emerald-500 text-white px-6 py-2 rounded-lg font-medium"
+                >
+                  Sign In to Post
+                </button>
+              )}
+            </div>
           </motion.div>
         ) : (
           <div className="space-y-4">
