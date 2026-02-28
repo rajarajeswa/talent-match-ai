@@ -541,11 +541,11 @@ export default function Home() {
               <div className="space-y-3">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
-                  <input type="text" value={name} onChange={e => setName(e.target.value)} className="w-full px-4 py-2 border rounded-lg" />
+                  <input type="text" value={name} onChange={e => setName(e.target.value)} className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg bg-white text-gray-900" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray1">Phone Number-700 mb-</label>
-                  <input type="tel" value={phone} onChange={e => setPhone(e.target.value)} className="w-full px-4 py-2 border rounded-lg" />
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                  <input type="tel" value={phone} onChange={e => setPhone(e.target.value)} className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg bg-white text-gray-900" />
                 </div>
               </div>
               <div className="flex gap-3 mt-4">
@@ -575,7 +575,7 @@ export default function Home() {
               <p className="text-gray-600 text-sm mb-4">You'll receive payments here</p>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">UPI ID (e.g., name@upi)</label>
-                <input type="text" value={vpa} onChange={e => setVpa(e.target.value)} placeholder="yourname@oksbi" className="w-full px-4 py-2 border rounded-lg" />
+                <input type="text" value={vpa} onChange={e => setVpa(e.target.value)} placeholder="yourname@oksbi" className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg bg-white text-gray-900" />
               </div>
               <div className="flex gap-3 mt-4">
                 <button onClick={() => setShowVPASetup(false)} className="flex-1 px-4 py-2 border rounded-lg">Skip</button>
@@ -636,7 +636,7 @@ export default function Home() {
                       onChange={e => setDescription(e.target.value)}
                       placeholder="Add details (optional)"
                       rows={2}
-                      className="w-full px-4 py-2 border rounded-lg mt-2"
+                      className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg mt-2 bg-white text-gray-900"
                     />
                   </motion.div>
                 )}
