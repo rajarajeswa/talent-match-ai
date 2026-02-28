@@ -3,8 +3,6 @@
 import { useState, useEffect } from 'react'
 import { Task } from '@/lib/choreService'
 import { 
-  TrendingUp, 
-  TrendingDown, 
   DollarSign, 
   Users, 
   CheckCircle, 
@@ -13,7 +11,8 @@ import {
   ArrowDownRight,
   Activity,
   Zap,
-  LogOut
+  LogOut,
+  TrendingUp
 } from 'lucide-react'
 import Link from 'next/link'
 
@@ -52,7 +51,6 @@ export default function Dashboard() {
       const data: Task[] = await res.json()
       setTasks(data)
       
-      // Calculate stats based on time filter
       const now = new Date()
       const filteredTasks = data.filter(task => {
         if (!task.createdAt) return true
@@ -69,7 +67,6 @@ export default function Dashboard() {
       const activeTasks = filteredTasks.filter(t => t.status === 'taken')
       const totalRevenue = completedTasks.reduce((sum, t) => sum + (t.price || 0), 0)
 
-      // Calculate unique users
       const posterPhones = new Set(filteredTasks.map(t => t.posterPhone))
       const helperPhones = new Set(filteredTasks.map(t => t.helperPhone).filter(Boolean))
       const totalUsers = posterPhones.size + helperPhones.size
@@ -80,7 +77,7 @@ export default function Dashboard() {
         completedTasks: completedTasks.length,
         activeTasks: activeTasks.length,
         totalUsers: totalUsers || 1,
-        revenueChange: Math.floor(Math.random() * 20) - 5, // Demo data
+        revenueChange: Math.floor(Math.random() * 20) - 5,
         tasksChange: Math.floor(Math.random() * 15) - 3
       })
     } catch (e) {
@@ -124,7 +121,6 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
       <header className="bg-white shadow-sm">
         <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-3">
@@ -148,7 +144,6 @@ export default function Dashboard() {
       </header>
 
       <main className="max-w-6xl mx-auto px-4 py-8">
-        {/* Time Filter */}
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-2xl font-bold text-gray-900">Dashboard Overview</h1>
           <div className="flex gap-2 bg-white rounded-lg p-1 shadow-sm">
@@ -168,9 +163,8 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {statCards.map((stat, index) => (
+          {statCards.map((stat) => (
             <div key={stat.title} className="bg-white rounded-xl p-6 shadow-sm">
               <div className="flex justify-between items-start mb-4">
                 <div className={`p-3 rounded-lg ${stat.color}`}>
@@ -195,9 +189,7 @@ export default function Dashboard() {
           ))}
         </div>
 
-        {/* Charts Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          {/* Revenue Chart */}
           <div className="bg-white rounded-xl p-6 shadow-sm">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Revenue Trend</h3>
             <div className="h-48 flex items-end gap-2">
@@ -215,7 +207,6 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Tasks Chart */}
           <div className="bg-white rounded-xl p-6 shadow-sm">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Task Activity</h3>
             <div className="h-48 flex items-end gap-2">
@@ -234,7 +225,6 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Recent Tasks Table */}
         <div className="bg-white rounded-xl shadow-sm overflow-hidden">
           <div className="px-6 py-4 border-b border-gray-100">
             <h3 className="text-lg font-semibold text-gray-900">Recent Tasks</h3>
@@ -261,7 +251,7 @@ export default function Dashboard() {
                   <tr key={task.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4">
                       <p className="font-medium text-gray-900">{task.title}</p>
-                      <p className="text-sm text-gray-500">{task.description?.slice(0, 50)}...</p>
+                      <p className="text-sm text-gray-500">{(task.description || '').slice(0, 50)}...</p>
                     </td>
                     <td className="px-6 py-4">
                       <span className="font-semibold text-green-600">₹{task.price}</span>
@@ -290,7 +280,6 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Quick Stats Footer */}
         <div className="mt-8 grid grid-cols-3 gap-6">
           <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl p-6 text-white">
             <div className="flex items-center gap-3 mb-2">
