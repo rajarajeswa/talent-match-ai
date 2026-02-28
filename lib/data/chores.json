@@ -1,0 +1,51 @@
+{
+  "tasks": [
+    {
+      "id": "1",
+      "title": "Walk my dog",
+      "description": "Need someone to walk my golden retriever for 20 minutes",
+      "price": 100,
+      "status": "taken",
+      "location": "HSR Layout, Sector 1",
+      "posterName": "Rahul",
+      "posterPhone": "9876543210",
+      "createdAt": "2026-02-28T08:00:00.000Z",
+      "helperName": "raji",
+      "helperPhone": "9629179545"
+    },
+    {
+      "id": "2",
+      "title": "Move sofa",
+      "description": "Help me move a sofa from one room to another",
+      "price": 150,
+      "status": "open",
+      "location": "Koramangala, 5th Block",
+      "posterName": "Priya",
+      "posterPhone": "9876543211",
+      "createdAt": "2026-02-28T07:30:00.000Z"
+    },
+    {
+      "id": "3",
+      "title": "Peel garlic",
+      "description": "Need help peeling 1kg of garlic for cooking",
+      "price": 50,
+      "status": "open",
+      "location": "BTM Layout",
+      "posterName": "Suresh",
+      "posterPhone": "9876543212",
+      "createdAt": "2026-02-28T07:00:00.000Z"
+    }
+  ],
+  "users": [
+    {
+      "id": "1772272267509",
+      "name": "raji",
+      "phone": "9629179545",
+      "vpa": "rajeswariraja720-1@oksbi",
+      "rating": 5,
+      "role": "neighbor",
+      "tasksPosted": 0,
+      "tasksHelped": 0
+    }
+  ]
+}
